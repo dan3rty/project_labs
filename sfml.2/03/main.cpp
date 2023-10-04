@@ -4,6 +4,7 @@
 
 int main()
 {
+    const float angleSpeed = 3;
     float ringRadius = 100;
     float angle = 0;
     constexpr int pointCount = 200;
@@ -42,7 +43,7 @@ int main()
 
         const float dt = clock.restart().asSeconds();
 
-        angle += dt * 3;
+        angle += dt * angleSpeed;
 
         sf::Vector2f position = {
             ringRadius * std::sin(angle) + 400,
