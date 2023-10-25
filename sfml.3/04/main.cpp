@@ -6,7 +6,7 @@ const float ANGLE_SPEED = 8;
 float rotationSpeed = 60;
 
 
-float toDegress(float radians)
+float toDegrees(float radians)
 {
     return float(radians * 180.0 / M_PI);
 }
@@ -50,7 +50,7 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
 void update(sf::ConvexShape &pointer, const float dt, const sf::Vector2f &mousePosition)
 {
     const sf::Vector2f delta = mousePosition - pointer.getPosition();
-    float angle = toDegress(std::atan2(delta.y, delta.x));
+    float angle = toDegrees(std::atan2(delta.y, delta.x));
     float currentRotation = pointer.getRotation();
     if (angle < 0)
     {
