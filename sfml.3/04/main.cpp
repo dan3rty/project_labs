@@ -5,7 +5,6 @@
 const float ANGLE_SPEED = 8;
 float rotationSpeed = 60;
 
-float angle = 0;
 
 float toDegress(float radians)
 {
