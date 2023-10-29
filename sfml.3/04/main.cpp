@@ -1,9 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include <iostream>
 
-const float ANGLE_SPEED = 8;
-float rotationSpeed = 60;
+float rotationSpeed = 15.0f;
 
 
 float toDegrees(float radians)
@@ -29,7 +27,7 @@ void init(sf::ConvexShape &pointer)
 
 void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition)
 {
-    sf::Event event;
+    sf::Event event{};
 
     while (window.pollEvent(event))
     {
@@ -52,12 +50,11 @@ void update(sf::ConvexShape &pointer, const float dt, const sf::Vector2f &mouseP
     const sf::Vector2f delta = mousePosition - pointer.getPosition();
     float angle = toDegrees(std::atan2(delta.y, delta.x));
     float currentRotation = pointer.getRotation();
-    if (angle < 0)
+    if (std::abs(currentRotation - angle) > std::abs(currentRotation - (angle + 360)))
     {
         angle += 360;
     }
     float rotation = angle - currentRotation;
-    std::cout << rotation << "      " << angle << "        " << currentRotation << std::endl;
     float rotatePath = rotationSpeed * dt;
     if (rotation > rotatePath)
     {
@@ -86,8 +83,8 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(
-        sf::VideoMode({WINDOW_WIDTH, WINDOW_WIDTH}),
-        "Pointer follows mouse", sf::Style::Default, settings);
+        sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}),
+        "Pointer slowly follows mouse", sf::Style::Default, settings);
 
     sf::ConvexShape pointer;
     sf::Vector2f mousePosition;
